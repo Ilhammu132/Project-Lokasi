@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contoh Geolocation</title>
+  <script>
+    function getLocation() {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+      } else {
+        alert("Geolocation tidak didukung oleh peramban ini.");
+      }
+    }
+
+    function showPosition(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+
+      document.getElementById("latitude").innerHTML = "Latitude: " + latitude;
+      document.getElementById("longitude").innerHTML = "Longitude: " + longitude;
+    }
+
+    function showError(error) {
+      switch(error.code) {
+        case error.PERMISSION_DENIED:
+          alert("Izin lokasi ditolak oleh pengguna.");
+          break;
+        case error.POSITION_UNAVAILABLE:
+          alert("Informasi lokasi tidak tersedia.");
+          break;
+        case error.TIMEOUT:
+          alert("Permintaan lokasi pengguna timeout.");
+          break;
+        case error.UNKNOWN_ERROR:
+          alert("Terjadi kesalahan yang tidak diketahui.");
+          break;
+      }
+    }
+    function Search(){
+        var latitudeOut = parseFloat(document.getElementById("latitudeOut").value.replace(",", "."));
+        var longitudeOut = parseFloat(document.getElementById("longitudeOut").value.replace(",", "."));
+      
+        var url = "https://www.google.com/maps/search/?api=1&query=" + latitudeOut + "," + longitudeOut;
+        window.location.href = url;
+      }
+  </script>
+</head>
+<body>
+  <button onclick="getLocation()">Dapatkan Lokasi</button>
+  <p id="latitude"></p>
+  <p id="longitude"></p>
+
+  <h1>Lokasi anda</h1>
+  <label for="latitudeOut">Latitude:</label>
+  <input type="text" id="latitudeOut" placeholder="Latitude"><br>
+
+  <label for="longitudeOut">Longitude:</label>
+  <input type="text" id="longitudeOut" placeholder="Longitude"><br>
+  
+  <button onclick="Search()">Cari Lokasi</button>
+  <!-- gk jelas -->
+</body>
+</html>
